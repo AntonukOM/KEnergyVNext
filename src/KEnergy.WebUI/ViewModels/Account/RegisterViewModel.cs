@@ -8,6 +8,22 @@ namespace KEnergy.WebUI.ViewModels.Account
 {
     public class RegisterViewModel
     {
+        [Display(Name = "Surname")]
+        public string Surname { get; set; }
+
+        [Display(Name = "Name")]
+        public string Name { get; set; }
+
+        [Display(Name = "Last Name")]
+        public string Lastname { get; set; }
+        [Display(Name = "Phone")]
+        [DataType(DataType.PhoneNumber)]
+        public string Phone { get; set; }
+
+        [Display(Name = "Date of Birth")]
+        [DataType(DataType.DateTime)]
+        public DateTime? Birthday { get; set; }
+
         [Required]
         [EmailAddress]
         [Display(Name = "Email")]
