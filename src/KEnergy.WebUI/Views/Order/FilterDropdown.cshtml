@@ -1,0 +1,15 @@
+﻿@model IEnumerable<SelectListItem>
+
+@{
+    IEnumerable<SelectListItem> items = Model;
+}
+
+<div class="form-group">
+    <select id="manager" class="form-control">
+        <option>All</option>
+        @foreach (var i in items)
+        {
+            <option value="@i.Value">@i.Text</option>
+        }
+    </select>
+</div>

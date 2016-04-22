@@ -1,0 +1,56 @@
+﻿@using KEnergy.WebUI.Models
+@model Order
+
+@{
+    ViewBag.Title = ViewBag.TitleFromView;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    Order order = Model;
+    order.CreationDate = DateTime.Now;
+    IEnumerable<SelectListItem> items = ViewBag.Items;
+}
+<h1 class="lead text-info">@ViewBag.TitleFromView</h1>
+
+@using (Html.BeginForm("Save", "Order",
+                FormMethod.Post, new { enctype = "multipart/form-data", @class="form-horizontal" }))
+{
+    @Html.HiddenFor(o => o.OrderId)
+    @Html.HiddenFor(o => o.CreationDate)
+
+    <div class="form-group">
+        @Html.LabelFor(o => o.Number, new { @class = "control-label col-sm-2" })
+        <div class="col-sm-10">
+            @Html.TextBoxFor(o => o.Number, new
+            {
+                @class = "form-control",
+                placeholder = "Enter number here", Value = order.Number
+            })
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(o => o.ShipmentDate, new {@class = "control-label col-sm-2"})
+        <div class="col-sm-10">
+            @Html.TextBoxFor(o => o.ShipmentDate, new
+            {
+                @class = "form-control", placeholder = "Shipment Date", Value = order.ShipmentDate
+            })
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(o => o.Note, new {@class = "control-label col-sm-2"})
+        <div class="col-sm-10">
+            @Html.TextBoxFor(o => o.Note, new {@class = "form-control", placeholder = "Note", Value = order.Note })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(o => o.ManagerId, new {@class = "control-label col-sm-2"})
+        <div class="col-sm-10">
+            @Html.DropDownListFor(o => o.ManagerId, items, new { @class = "form-control" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        <input type="submit" value="Save" class="btn btn-success"/>
+        @Html.ActionLink("Cancel", "All", null, new {@class = "btn btn-danger"})
+    </div>
+}
