@@ -1,15 +1,25 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using KEnergy.WebUI.DSL.Interfaces;
+using KEnergy.WebUI.Models;
 using Microsoft.AspNet.Mvc;
 
 namespace KEnergy.WebUI.Controllers
 {
     public class OrderController : Controller
     {
+        //private readonly IOrderRepository _orderRepository;
+        private IApplicationDbContext _context;
+        //public OrderController(IOrderRepository orderRepository)
+        //{
+        //    this._orderRepository = orderRepository;
+        //}
+
+        public OrderController(IApplicationDbContext context)
+        {
+            this._context = context;
+        }
         public IActionResult Index()
         {
+            ViewBag.Orders = _context.Orders;
             return View();
         }
 

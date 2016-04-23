@@ -1,5 +1,14 @@
 ﻿@{
+    IEnumerable<Order> orders = ViewBag.Orders;
     ViewData["Title"] = "Order Page";
+}
+
+
+<h1>Orders</h1>
+
+@foreach (var o in orders)
+{
+    <p>@o.Number</p>
 }
 
 <div id="myCarousel" class="carousel slide" data-ride="carousel" data-interval="6000">

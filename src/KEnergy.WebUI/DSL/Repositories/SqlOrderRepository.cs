@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using KEnergy.WebUI.DSL.Interfaces;
 using KEnergy.WebUI.Models;
+using Microsoft.Data.Entity.Infrastructure;
 
 namespace KEnergy.WebUI.DSL.Repositories
 {

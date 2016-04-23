@@ -1,4 +1,5 @@
 ﻿using KEnergy.WebUI.Models;
+using Microsoft.Data.Entity.Infrastructure;
 
 namespace KEnergy.WebUI.DSL.Repositories
 {
