@@ -1,5 +1,4 @@
-﻿using KEnergy.WebUI.DSL.Interfaces;
-using KEnergy.WebUI.DSL.Repositories;
+﻿using KEnergy.WebUI.DAL;
 using Microsoft.AspNet.Builder;
 using Microsoft.AspNet.Hosting;
 using Microsoft.AspNet.Identity.EntityFramework;
@@ -40,8 +39,6 @@ namespace KEnergy.WebUI
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddScoped<IOrderRepository, SqlOrderRepository>();
-            services.AddScoped<IManagerRepository, SqlManagerRepository>();
             services.AddScoped<IApplicationDbContext>(provider => provider.GetService<ApplicationDbContext>());
             // Add framework services.
             services.AddApplicationInsightsTelemetry(Configuration);
@@ -61,12 +58,14 @@ namespace KEnergy.WebUI
             // Add application services.
             services.AddTransient<IEmailSender, AuthMessageSender>();
             services.AddTransient<ISmsSender, AuthMessageSender>();
+            services.AddTransient<DataInitializer>();
 
-          
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, 
+            ILoggerFactory loggerFactory, DataInitializer initData)
         {
             loggerFactory.AddConsole(Configuration.GetSection("Logging"));
             loggerFactory.AddDebug();
@@ -112,6 +111,7 @@ namespace KEnergy.WebUI
                     name: "default",
                     template: "{controller=Order}/{action=Index}/{id?}");
             });
+            //await initData.InitializeDataAsync();
         }
 
         // Entry point for the application.

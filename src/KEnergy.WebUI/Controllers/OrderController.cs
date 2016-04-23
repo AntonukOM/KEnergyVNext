@@ -1,17 +1,11 @@
-﻿using KEnergy.WebUI.DSL.Interfaces;
-using KEnergy.WebUI.Models;
+﻿using KEnergy.WebUI.Models;
 using Microsoft.AspNet.Mvc;
 
 namespace KEnergy.WebUI.Controllers
 {
     public class OrderController : Controller
     {
-        //private readonly IOrderRepository _orderRepository;
         private IApplicationDbContext _context;
-        //public OrderController(IOrderRepository orderRepository)
-        //{
-        //    this._orderRepository = orderRepository;
-        //}
 
         public OrderController(IApplicationDbContext context)
         {
