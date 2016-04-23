@@ -9,15 +9,8 @@ namespace KEnergy.WebUI.Controllers
 {
     public class OrderController : Controller
     {
-        //private readonly ApplicationDbContext _context;
         private readonly ManagerSelectList _managerSelectList;
         private readonly IOrderRepository  _orderRepository;
-
-        //public OrderController(ApplicationDbContext context)
-        //{
-        //    this._context = context;
-        //    this._managerSelectList = new ManagerSelectList(_context);
-        //}
 
         public OrderController(IOrderRepository orders, IManagerRepository managers)
         {
@@ -36,17 +29,7 @@ namespace KEnergy.WebUI.Controllers
         [HttpGet]
         public IActionResult FilterByManager(int? filterContext)
         {
-            List<Order> filteredList = new List<Order>();
-            if (filterContext != null)
-            {
-                filteredList = _orderRepository.Orders
-                    .Where(m => m.ManagerId == filterContext).ToList();
-            }
-            else
-            {
-                filteredList = _orderRepository.Orders.ToList();
-            }
-            return PartialView("FilteredOrders", filteredList);
+            return PartialView("FilteredOrders", _orderRepository.FilredByManager(filterContext));
         }
 
         [HttpGet]
@@ -58,7 +41,7 @@ namespace KEnergy.WebUI.Controllers
         }
 
         [HttpGet]
-        public ActionResult Edit(int id)
+        public IActionResult Edit(int id)
         {
             ViewBag.TitleFromView = "Edit";
             Order order = _orderRepository.FindById(id);
@@ -66,8 +49,14 @@ namespace KEnergy.WebUI.Controllers
             return View(order);
         }
 
+        [HttpGet]
+        public IActionResult AddModal()
+        {
+            return null;
+        }
+
         [HttpPost]
-        public ActionResult Save(Order order)
+        public IActionResult Save(Order order)
         {
             if (ModelState.IsValid)
             {

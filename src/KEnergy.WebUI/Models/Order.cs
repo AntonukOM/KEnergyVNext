@@ -7,7 +7,7 @@ namespace KEnergy.WebUI.Models
     public class Order
     {
         public int OrderId { get; set; }
-
+        
         [Required(ErrorMessage = "Order name is empty")]
         public string Number { get; set; }
 

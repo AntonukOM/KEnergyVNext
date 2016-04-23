@@ -10,5 +10,6 @@ namespace KEnergy.WebUI.DSL.Interfaces
         void Edit(Order order);
         Order FindById(int orderId);
         void Delete(int orderId);
+        IEnumerable<Order> FilredByManager(int? filterId);
     }
 }

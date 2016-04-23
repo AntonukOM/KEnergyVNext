@@ -51,6 +51,10 @@ namespace KEnergy.WebUI.DSL.Repositories
             }
         }
 
-
+        public IEnumerable<Order> FilredByManager(int? filterId)
+        {
+            return (filterId != null) ? 
+                Orders.Where(x => x.ManagerId == filterId) : Orders;
+        }
     }
 }

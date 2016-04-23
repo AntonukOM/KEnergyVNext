@@ -1,6 +1,6 @@
-﻿@model List<Order>
+﻿@model IEnumerable<Order>
 @{
-    List<Order> orders = Model;
+    IEnumerable<Order> orders = Model;
 }
 
 @foreach (var o in orders)
