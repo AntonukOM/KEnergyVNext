@@ -1,4 +1,5 @@
-﻿using System.Reflection.Emit;
+﻿using System;
+using System.Reflection.Emit;
 using KEnergy.WebUI.DAL;
 using KEnergy.WebUI.DSL.Interfaces;
 using KEnergy.WebUI.DSL.Repositories;
@@ -42,6 +43,9 @@ namespace KEnergy.WebUI
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddScoped<IOrderRepository, SqlOrderRepository>();
+            services.AddScoped<IManagerRepository, SqlManagerRepository>();
+                //Inject constructor requiresd);
             services.AddScoped<IApplicationDbContext>(provider => provider.GetService<ApplicationDbContext>());
             // Add framework services.
             services.AddApplicationInsightsTelemetry(Configuration);

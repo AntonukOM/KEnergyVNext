@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using KEnergy.WebUI.DSL.Interfaces;
 using KEnergy.WebUI.Models;
 using Microsoft.AspNet.Mvc.Rendering;
 
@@ -6,9 +7,9 @@ namespace KEnergy.WebUI.Helpers.UI
 {
     public class ManagerSelectList
     {
-        private readonly IApplicationDbContext _context;
+        private readonly IManagerRepository _context;
 
-        public ManagerSelectList(IApplicationDbContext context)
+        public ManagerSelectList(IManagerRepository context)
         {
             this._context = context;
         }
