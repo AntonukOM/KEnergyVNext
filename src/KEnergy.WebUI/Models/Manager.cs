@@ -12,6 +12,16 @@ namespace KEnergy.WebUI.Models
         [Required(ErrorMessage = "Manager surname is empty")]
         public string Surname { get; set; }
 
-        public string FullName => $"{Name} {Surname}";
+        public string FullName
+        {
+            get
+            {
+                return $"{Name} {Surname}";
+            }
+            set
+            {
+                value = $"{Name} {Surname}";
+            }
+        }
     }
 }

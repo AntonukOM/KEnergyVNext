@@ -11,6 +11,7 @@ namespace KEnergy.WebUI.Models
         }
         public virtual DbSet<Order> Orders { get; set; }
         public virtual DbSet<Manager> Managers { get; set; }
+
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
@@ -23,6 +24,4 @@ namespace KEnergy.WebUI.Models
         DbSet<Order> Orders { get; set; }
         DbSet<Manager> Managers { get; set; }
     }
-
-
 }
