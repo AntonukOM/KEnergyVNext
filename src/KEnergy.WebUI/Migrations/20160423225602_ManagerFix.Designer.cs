@@ -8,8 +8,8 @@ using KEnergy.WebUI.Models;
 namespace KEnergy.WebUI.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20160422152708_User")]
-    partial class User
+    [Migration("20160423225602_ManagerFix")]
+    partial class ManagerFix
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -73,6 +73,39 @@ namespace KEnergy.WebUI.Migrations
                         .HasAnnotation("Relational:Name", "UserNameIndex");
 
                     b.HasAnnotation("Relational:TableName", "AspNetUsers");
+                });
+
+            modelBuilder.Entity("KEnergy.WebUI.Models.Manager", b =>
+                {
+                    b.Property<int>("ManagerId")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("Name")
+                        .IsRequired();
+
+                    b.Property<string>("Surname")
+                        .IsRequired();
+
+                    b.HasKey("ManagerId");
+                });
+
+            modelBuilder.Entity("KEnergy.WebUI.Models.Order", b =>
+                {
+                    b.Property<int>("OrderId")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<DateTime>("CreationDate");
+
+                    b.Property<int>("ManagerId");
+
+                    b.Property<string>("Note");
+
+                    b.Property<string>("Number")
+                        .IsRequired();
+
+                    b.Property<DateTime?>("ShipmentDate");
+
+                    b.HasKey("OrderId");
                 });
 
             modelBuilder.Entity("Microsoft.AspNet.Identity.EntityFramework.IdentityRole", b =>
@@ -155,6 +188,13 @@ namespace KEnergy.WebUI.Migrations
                     b.HasKey("UserId", "RoleId");
 
                     b.HasAnnotation("Relational:TableName", "AspNetUserRoles");
+                });
+
+            modelBuilder.Entity("KEnergy.WebUI.Models.Order", b =>
+                {
+                    b.HasOne("KEnergy.WebUI.Models.Manager")
+                        .WithMany()
+                        .HasForeignKey("ManagerId");
                 });
 
             modelBuilder.Entity("Microsoft.AspNet.Identity.EntityFramework.IdentityRoleClaim<string>", b =>

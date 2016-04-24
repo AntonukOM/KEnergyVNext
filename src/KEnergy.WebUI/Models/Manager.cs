@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace KEnergy.WebUI.Models
 {
@@ -12,16 +13,7 @@ namespace KEnergy.WebUI.Models
         [Required(ErrorMessage = "Manager surname is empty")]
         public string Surname { get; set; }
 
-        public string FullName
-        {
-            get
-            {
-                return $"{Name} {Surname}";
-            }
-            set
-            {
-                value = $"{Name} {Surname}";
-            }
-        }
+        [NotMapped]
+        public string FullName => $"{Name} {Surname}";
     }
 }

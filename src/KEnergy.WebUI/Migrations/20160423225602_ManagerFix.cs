@@ -5,7 +5,7 @@ using Microsoft.Data.Entity.Metadata;
 
 namespace KEnergy.WebUI.Migrations
 {
-    public partial class Order : Migration
+    public partial class ManagerFix : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -20,7 +20,6 @@ namespace KEnergy.WebUI.Migrations
                 {
                     ManagerId = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    FullName = table.Column<string>(nullable: true),
                     Name = table.Column<string>(nullable: false),
                     Surname = table.Column<string>(nullable: false)
                 },

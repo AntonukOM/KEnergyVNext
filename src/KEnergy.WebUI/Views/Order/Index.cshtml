@@ -8,14 +8,16 @@
 @{
     IEnumerable<Order> orders = Model;
     IEnumerable<SelectListItem> items = ViewBag.ManagerList;
+    Order order = new Order();
     ViewData["Title"] = "Order Page";
 }
-
-
-<h1>Orders</h1>
-
-
+<h1 class="lead text-info">Orders</h1>
 <a class="btn btn-primary" href="/Order/Add">Add order</a>
+<button type="button" class="btn btn-default btn-lg" data-toggle="modal" data-target="#myModal">Add modal</button>
+
+<div class="modal fade" id="myModal" role="dialog">
+    @Html.Partial("EditPartial", order)
+</div>
 
 @Html.Partial("FilterDropdown", items)
 

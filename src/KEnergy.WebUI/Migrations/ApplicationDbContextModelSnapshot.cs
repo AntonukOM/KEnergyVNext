@@ -74,6 +74,39 @@ namespace KEnergy.WebUI.Migrations
                     b.HasAnnotation("Relational:TableName", "AspNetUsers");
                 });
 
+            modelBuilder.Entity("KEnergy.WebUI.Models.Manager", b =>
+                {
+                    b.Property<int>("ManagerId")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("Name")
+                        .IsRequired();
+
+                    b.Property<string>("Surname")
+                        .IsRequired();
+
+                    b.HasKey("ManagerId");
+                });
+
+            modelBuilder.Entity("KEnergy.WebUI.Models.Order", b =>
+                {
+                    b.Property<int>("OrderId")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<DateTime>("CreationDate");
+
+                    b.Property<int>("ManagerId");
+
+                    b.Property<string>("Note");
+
+                    b.Property<string>("Number")
+                        .IsRequired();
+
+                    b.Property<DateTime?>("ShipmentDate");
+
+                    b.HasKey("OrderId");
+                });
+
             modelBuilder.Entity("Microsoft.AspNet.Identity.EntityFramework.IdentityRole", b =>
                 {
                     b.Property<string>("Id");
@@ -154,6 +187,13 @@ namespace KEnergy.WebUI.Migrations
                     b.HasKey("UserId", "RoleId");
 
                     b.HasAnnotation("Relational:TableName", "AspNetUserRoles");
+                });
+
+            modelBuilder.Entity("KEnergy.WebUI.Models.Order", b =>
+                {
+                    b.HasOne("KEnergy.WebUI.Models.Manager")
+                        .WithMany()
+                        .HasForeignKey("ManagerId");
                 });
 
             modelBuilder.Entity("Microsoft.AspNet.Identity.EntityFramework.IdentityRoleClaim<string>", b =>

@@ -24,6 +24,7 @@ namespace KEnergy.WebUI.Models
 
         [ForeignKey("Manager")]
         public int ManagerId { get; set; }
+
         public virtual Manager Manager { get; set; }
     }
 }

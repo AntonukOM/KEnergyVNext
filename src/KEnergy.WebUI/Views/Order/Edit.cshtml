@@ -3,14 +3,14 @@
     ViewBag.Title = ViewBag.TitleFromView;
     Layout = "~/Views/Shared/_Layout.cshtml";
     Order order = Model;
-    order.CreationDate = DateTime.Now;
     IEnumerable<SelectListItem> items = ViewBag.Items;
 }
 <h1 class="lead text-info">@ViewBag.TitleFromView</h1>
 
 @using (Html.BeginForm("Save", "Order",
-                FormMethod.Post, new { enctype = "multipart/form-data", @class="form-horizontal" }))
+                            FormMethod.Post, new { enctype = "multipart/form-data", @class = "form-horizontal" }))
 {
+    <span class="text-danger"> @Html.ValidationSummary()</span>
     @Html.HiddenFor(o => o.OrderId)
     @Html.HiddenFor(o => o.CreationDate)
 
@@ -53,4 +53,10 @@
         <input type="submit" value="Save" class="btn btn-success"/>
         @Html.ActionLink("Cancel", "Index", null, new {@class = "btn btn-danger"})
     </div>
+}
+
+@section scripts {
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
 }

@@ -1,9 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using System.Linq;
 using KEnergy.WebUI.Helpers.UI;
 using KEnergy.WebUI.Models;
 using Microsoft.AspNet.Mvc;
-using System.Linq;
 using KEnergy.WebUI.DSL.Interfaces;
+using Microsoft.AspNet.Http.Features;
 
 namespace KEnergy.WebUI.Controllers
 {
@@ -11,11 +11,14 @@ namespace KEnergy.WebUI.Controllers
     {
         private readonly ManagerSelectList _managerSelectList;
         private readonly IOrderRepository  _orderRepository;
+        private readonly IManagerRepository _managerRepository;
 
         public OrderController(IOrderRepository orders, IManagerRepository managers)
         {
             this._orderRepository = orders;
-            this._managerSelectList = new ManagerSelectList(managers);
+            this._managerRepository = managers;
+            this._managerSelectList = new ManagerSelectList(_managerRepository);
+            InitiateManagers();
         }
 
         [HttpGet]
@@ -25,11 +28,10 @@ namespace KEnergy.WebUI.Controllers
             return View(_orderRepository.Orders);
         }
 
-        //ToDo
         [HttpGet]
-        public IActionResult FilterByManager(int? filterContext)
+        public IActionResult FilterByManager(int? managerId)
         {
-            return PartialView("FilteredOrders", _orderRepository.FilredByManager(filterContext));
+            return PartialView("FilteredOrders", _orderRepository.FilredByManager(managerId));
         }
 
         [HttpGet]
@@ -49,11 +51,45 @@ namespace KEnergy.WebUI.Controllers
             return View(order);
         }
 
+
+        //Todo
+        [HttpGet]
+        public IActionResult EditModal(int id)
+        {
+            ViewBag.TitleFromView = "Edit";
+            Order order = _orderRepository.FindById(id);
+            ViewBag.Items = _managerSelectList.ManagerList;
+            return View("EditPartial", order);
+        }
+
+        //Todo
         [HttpGet]
         public IActionResult AddModal()
         {
-            return null;
+            ViewBag.ManagerList = _managerSelectList.ManagerList;
+            return View("EditPartial", new Order());
         }
+
+        //Todo
+        [HttpPost]
+        public IActionResult SaveModal(Order order)
+        {
+            if (ModelState.IsValid)
+            {
+                if (order.OrderId == 0)
+                {
+                    _orderRepository.Add(order);
+                }
+                else
+                {
+                    _orderRepository.Edit(order);
+                }
+                return RedirectToAction("Index");
+            }
+            ModelState.AddModelError("", "Error model exception");
+            return View("EditPartial", order);
+        }
+
 
         [HttpPost]
         public IActionResult Save(Order order)
@@ -90,6 +126,17 @@ namespace KEnergy.WebUI.Controllers
         public IActionResult Error()
         {
             return View();
+        }
+
+        private void InitiateManagers()
+        {
+            //initialize managers in order repository
+            //for js filter corect work
+            foreach (var o in _orderRepository.Orders)
+            {
+                o.Manager = _managerRepository.Managers
+                    .FirstOrDefault(x => x.ManagerId == o.ManagerId);
+            }
         }
     }
 }

@@ -4,12 +4,11 @@
         var filter = $el.find("option:selected").attr("value");
         console.log("Filter = " + filter);
 
-        debugger;
         $.ajax({
             type: "get",
             url: "/Order/FilterByManager",
             dataType: "html",
-            data: "filterContext=" + filter
+            data: "managerId=" + filter
         })
             .done(function (data) {
                 console.log("ajax filter is done!" + data);
