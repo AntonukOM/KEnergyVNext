@@ -11,11 +11,12 @@
     Order order = new Order();
     ViewData["Title"] = "Order Page";
 }
+
 <h1 class="lead text-info">Orders</h1>
 <a class="btn btn-primary" href="/Order/Add">Add order</a>
-<button type="button" class="btn btn-default btn-lg" data-toggle="modal" data-target="#myModal">Add modal</button>
 
-<div class="modal fade" id="myModal" role="dialog">
+<button type="button" class="btn btn-default btn-lg" data-toggle="modal" data-target="#order-editor">Add modal</button>
+<div class="modal fade" id="order-editor" role="dialog">
     @Html.Partial("EditPartial", order)
 </div>
 
@@ -23,16 +24,17 @@
 
 <table class="table table-hover table-bordered">
     <thead>
-        <tr class="text-primary">
-            <th>Number</th>
-            <th>Manager</th>
-            <th>Created</th>
-            <th>Shiped</th>
-            <th>Note</th>
-            <td>Edit</td>
-        </tr>
+    <tr class="text-primary">
+        <th>Number</th>
+        <th>Manager</th>
+        <th>Created</th>
+        <th>Shiped</th>
+        <th>Note</th>
+        <td>Edit</td>
+    </tr>
     </thead>
     <tbody id="orders">
-        @Html.Partial("FilteredOrders", orders.ToList())
+    @Html.Partial("FilteredOrders", orders.ToList())
     </tbody>
 </table>
+<span class="text-success">@ViewBag.Message</span>

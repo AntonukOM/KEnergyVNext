@@ -61,6 +61,8 @@ namespace KEnergy.WebUI
                 .AddDefaultTokenProviders();
 
             services.AddMvc();
+            services.AddSession();
+            services.AddCaching();
 
             // Add application services.
             services.AddTransient<IEmailSender, AuthMessageSender>();
@@ -76,9 +78,8 @@ namespace KEnergy.WebUI
         {
             loggerFactory.AddConsole(Configuration.GetSection("Logging"));
             loggerFactory.AddDebug();
-
             app.UseApplicationInsightsRequestTelemetry();
-
+            
             if (env.IsDevelopment())
             {
                 app.UseBrowserLink();
@@ -110,7 +111,11 @@ namespace KEnergy.WebUI
 
             app.UseIdentity();
 
+            app.UseSession();
+
             // To configure external authentication please see http://go.microsoft.com/fwlink/?LinkID=532715
+
+            app.UseSession();
 
             app.UseMvc(routes =>
             {

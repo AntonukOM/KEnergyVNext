@@ -4,6 +4,7 @@ using KEnergy.WebUI.Models;
 using Microsoft.AspNet.Mvc;
 using KEnergy.WebUI.DSL.Interfaces;
 using Microsoft.AspNet.Http.Features;
+using Microsoft.AspNet.Http;
 
 namespace KEnergy.WebUI.Controllers
 {
@@ -24,6 +25,7 @@ namespace KEnergy.WebUI.Controllers
         [HttpGet]
         public IActionResult Index()
         {
+            ViewBag.Message = TempData["message"];
             ViewBag.ManagerList = _managerSelectList.ManagerList;
             return View(_orderRepository.Orders);
         }
@@ -64,10 +66,12 @@ namespace KEnergy.WebUI.Controllers
 
         //Todo
         [HttpGet]
-        public IActionResult AddModal()
+        public IActionResult AddModal(Order order)
         {
+            var result = true;
             ViewBag.ManagerList = _managerSelectList.ManagerList;
-            return View("EditPartial", new Order());
+            return Content(result ? "Ok" : string.Empty);
+            //return View("EditPartial", new Order());
         }
 
         //Todo
@@ -99,10 +103,12 @@ namespace KEnergy.WebUI.Controllers
                 if (order.OrderId == 0)
                 {
                     _orderRepository.Add(order);
+                    TempData["message"] = $"Order number '{order.Number}' was added";
                 }
                 else
                 {
                     _orderRepository.Edit(order);
+                    TempData["message"] = $"Changes in order number '{order.Number}' was saved";
                 }
                 return RedirectToAction("Index");
             }
