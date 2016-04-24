@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 using KEnergy.WebUI.Helpers.UI;
 using KEnergy.WebUI.Models;
 using Microsoft.AspNet.Mvc;
@@ -118,14 +119,27 @@ namespace KEnergy.WebUI.Controllers
 
         public IActionResult About()
         {
-            ViewData["Message"] = "Your application description page.";
+            ViewData["Message"] = "Location on google maps";
             return View();
+        }
+
+
+        [HttpGet]
+        public JsonResult GetData()
+        {
+            Location address = new Location
+            {
+                Id = 1,
+                Name = "K-Energy",
+                GeoLat = 37.610489,
+                GeoLong = 55.752308
+            };
+            return Json(address);
         }
 
         public IActionResult Contact()
         {
             ViewData["Message"] = "Your contact page.";
-
             return View();
         }
 
