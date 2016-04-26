@@ -67,14 +67,11 @@ namespace KEnergy.WebUI
             // Add application services.
             services.AddTransient<IEmailSender, AuthMessageSender>();
             services.AddTransient<ISmsSender, AuthMessageSender>();
-            services.AddTransient<DataInitializer>();
-
-
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, 
-            ILoggerFactory loggerFactory, DataInitializer initData)
+            ILoggerFactory loggerFactory)
         {
             loggerFactory.AddConsole(Configuration.GetSection("Logging"));
             loggerFactory.AddDebug();
@@ -123,7 +120,7 @@ namespace KEnergy.WebUI
                     name: "default",
                     template: "{controller=Order}/{action=Index}/{id?}");
             });
-            //await initData.InitializeDataAsync();
+            AppDbInitializer.Initialize(app.ApplicationServices);
         }
 
         // Entry point for the application.

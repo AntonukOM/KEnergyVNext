@@ -16,3 +16,10 @@ VALUES
 (5, 'Number5', GETDATE(), NULL, NULL, 3);
 SET IDENTITY_INSERT [dbo].[Order] ON;
 
+
+DECLARE @cnt INT = 0;
+
+WHILE @cnt < cnt_total
+BEGIN
+
+END;
