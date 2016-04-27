@@ -4,6 +4,7 @@ using KEnergy.WebUI.Helpers.UI;
 using KEnergy.WebUI.Models;
 using Microsoft.AspNet.Mvc;
 using KEnergy.WebUI.DSL.Interfaces;
+using Microsoft.AspNet.Authorization;
 using Microsoft.AspNet.Http.Features;
 using Microsoft.AspNet.Http;
 
@@ -24,6 +25,7 @@ namespace KEnergy.WebUI.Controllers
         }
 
         [HttpGet]
+        [Authorize]
         public IActionResult Index()
         {
             ViewBag.Message = TempData["message"];

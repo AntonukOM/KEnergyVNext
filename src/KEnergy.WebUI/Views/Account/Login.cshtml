@@ -14,7 +14,7 @@
         <section>
             <form asp-controller="Account" asp-action="Login" asp-route-returnurl="@ViewData["ReturnUrl"]" method="post" class="form-horizontal" role="form">
                 <h4>Use a local account to log in.</h4>
-                <hr />
+                <hr/>
                 <div asp-validation-summary="ValidationSummary.All" class="text-danger"></div>
                 <div class="form-group">
                     <label asp-for="Email" class="col-md-2 control-label"></label>
@@ -86,5 +86,8 @@
 </div>
 
 @section Scripts {
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
     @{ await Html.RenderPartialAsync("_ValidationScriptsPartial"); }
 }
