@@ -112,7 +112,12 @@ namespace KEnergy.WebUI
 
             // To configure external authentication please see http://go.microsoft.com/fwlink/?LinkID=532715
 
-            app.UseSession();
+            app.UseGoogleAuthentication(options =>
+            {
+                options.ClientId = "450267970917-qf25gkmpjqe177t8c1jfu78dtdgs5p30.apps.googleusercontent.com";
+                options.ClientSecret = "Xyc5VhAJX8SWLxffocOpT13C";
+
+            });
 
             app.UseMvc(routes =>
             {

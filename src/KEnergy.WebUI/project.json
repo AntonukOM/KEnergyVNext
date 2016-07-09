@@ -28,7 +28,8 @@
     "Microsoft.Extensions.Logging.Debug": "1.0.0-rc1-final",
     "Microsoft.VisualStudio.Web.BrowserLink.Loader": "14.0.0-rc1-final",
     "Sakura.AspNet.Mvc.PagedList": "1.0.0-rc1-update2",
-    "Sakura.AspNet.PagedList": "1.0.0-rc1-update2"
+    "Sakura.AspNet.PagedList": "1.0.0-rc1-update2",
+    "Microsoft.AspNet.Authentication.Google": "1.0.0-rc1-final"
   },
 
   "commands": {
